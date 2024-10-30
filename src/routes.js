@@ -1,4 +1,5 @@
 const modulesWithRoutes = [
+    'auth',
     'user',
 ];
 

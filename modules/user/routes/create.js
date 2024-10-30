@@ -2,12 +2,15 @@
 const { sequelize } = require('../../../common/db');
 const { models } = sequelize;
 
+const bcrypt = require('bcryptjs');
+
 module.exports = async function (req, res) {
   try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = {
       username: req.body.username,
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
     };
     if(!user.username || !user.email || !user.password) {
       return res.status(400).json({
