@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.1",
+    "fs": "^0.0.1-security",
+    "nconf": "^0.12.1",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
