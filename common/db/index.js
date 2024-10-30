@@ -11,6 +11,21 @@ const sequelize = new Sequelize(config);
 module.exports = {
     sequelize,
     loadModels: () => {
-        // se cargan los modelos
+        const modelsToLoad = [
+            'user',
+        ];
+        // models are loaded
+        modelsToLoad.forEach((modelName) => {
+            require(`../../modules/${modelName}`).loadModels();
+        });
+        const { models } = sequelize;
+
+        // Associate the models
+        const modelsArr = Object.keys(models);
+        modelsArr.forEach((modelName) => {
+            if ('associate' in models[modelName]) {
+                models[modelName].associate();
+            }
+        })
     }
 }
