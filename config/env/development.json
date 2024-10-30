@@ -1,3 +1,17 @@
 {
-    "APIName": "Cuban-E API"
+    "APIName": "Cuban-E API",
+    "database": {
+        "activeDialect": "mysql",
+        "dialects": {
+            "mysql": {
+                "name": "mysql",
+                "dialect": "mysql",
+                "host": "localhost",
+                "port": 3306,
+                "username": "root",
+                "password": "root",
+                "database": "cubane"
+            }
+        }
+    }
 }

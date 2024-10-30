@@ -10,12 +10,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sequelize/mysql": "^7.0.0-alpha.43",
     "express": "^4.21.1",
     "fs": "^0.0.1-security",
+    "mysql2": "^3.11.3",
     "nconf": "^0.12.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "sequelize-cli": "^6.6.2"
   }
 }

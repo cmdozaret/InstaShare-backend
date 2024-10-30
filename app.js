@@ -1,7 +1,7 @@
 const express = require('express');
 const app = new express();
 
-const env = require('./config/env/index');
-console.log(env.get("APIName"));
+// loading Db configuration
+const db = require('./common/db');
 
 app.listen(3500);
