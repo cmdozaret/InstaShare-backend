@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = new express();
+const env = require('./config/env/index');
 
 // parse application/json
 app.use(bodyParser.json());
@@ -14,4 +15,4 @@ db.loadModels();
 const routes = require('./src/routes');
 routes.setRoutes(app);
 
-app.listen(3500);
+app.listen(env.get('port'));

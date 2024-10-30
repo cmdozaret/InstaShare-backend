@@ -1,5 +1,6 @@
 {
     "APIName": "Cuban-E API",
+    "port": 3500,
     "database": {
         "activeDialect": "mysql",
         "dialects": {
