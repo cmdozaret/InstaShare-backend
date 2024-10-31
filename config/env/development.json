@@ -1,6 +1,10 @@
 {
     "APIName": "Cuban-E API",
     "port": 3500,
+    "jwt": {
+        "secretToken": "b19f8de0a01216bbfbcf0317964b33ecbf428b26182fe5f7d897f1b949e0e438d0af7ca16ccc70be9638edfa9df0a2c83678934fb800f7eaf330bc47b4a4ad1c",
+        "refreshToken": "5da01596c49d7dfd5d8e091faa74841231c4cd3755b1e32d86773dac4629207a84adf66b08487e830ae26b0c1cbd74f74b9c8dcbeb8da84f45a69c3868d39ac4"
+    },
     "database": {
         "activeDialect": "mysql",
         "dialects": {

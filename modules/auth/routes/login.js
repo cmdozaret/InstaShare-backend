@@ -1,11 +1,13 @@
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const env = require('../../../config/env');
 const { sequelize } = require('../../../common/db');
 const { models } = sequelize;
 
-const bcrypt = require('bcryptjs');
-
 module.exports = async function (req, res) {
     try {
-        const user = await models.User.findOne({
+        const user = await models.User.scope('withPassword').findOne({
             where: {
                 username: req.body.username
             }
@@ -16,8 +18,29 @@ module.exports = async function (req, res) {
             error.message = 'User not found';
             throw error;
         }
+        // Checking password
         if (await bcrypt.compare(req.body.password, user.password)) {
-            return res.status(200).json(user);
+            const userInfo = {
+                id: user.id,
+                username: user.username,
+                email: user.email,
+            };
+
+            // Generating access token
+            const accessSecret = env.get('jwt:secretToken');
+            const accessToken = jwt.sign(userInfo, accessSecret, { expiresIn: '30m' });
+
+            // Generating refresh token
+            const refreshSecret = env.get('jwt:refreshToken');
+            const refreshToken = jwt.sign(userInfo, refreshSecret);
+            user.refreshToken = refreshToken;
+            user.save();
+
+            // Returning tokens
+            return res.status(200).json({
+                accessToken,
+                refreshToken,
+            });
         }
         else {
             const error = new Error();
@@ -27,6 +50,8 @@ module.exports = async function (req, res) {
         }
     }
     catch (error) {
-        return res.status(error.status || 500).json(error);
+        return res.status(error.status || 500).json({
+            message: error.message || "An error has occur in login process"
+        });
     }
 }

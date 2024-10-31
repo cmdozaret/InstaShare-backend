@@ -1,6 +1,8 @@
 const { sequelize } = require('../../../common/db');
 const { models } = sequelize;
 
+const { authUser } = require('../../../common/middleware/authenticate');
+
 exports.routes = function routes(app) {
     const userCollectionRoute = `/user`;
 
@@ -41,7 +43,7 @@ exports.routes = function routes(app) {
 
     app
         .route(userSingleRoute)
-        .patch(ensureUserId, require('./update.js'))
+        .patch(authUser, ensureUserId, require('./update.js'))
         .get(ensureUserId, require('./show.js'))
-        .delete(ensureUserId, require('./delete.js'))
+        .delete(authUser, ensureUserId, require('./delete.js'))
 }

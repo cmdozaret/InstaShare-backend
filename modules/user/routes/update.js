@@ -6,6 +6,12 @@ const bcrypt = require('bcryptjs');
 module.exports = async function (req, res) {
     try {
         let user = req.user;
+        if(user.id !== req.loggedUser.id) {
+            const error = new Error();
+            error.status = 403;
+            error.message = 'You can only update your own profile';
+            throw error;
+        }
         for (const attribute in req.body) {
             user[attribute] = req.body[attribute];
         }
