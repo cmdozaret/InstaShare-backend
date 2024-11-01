@@ -46,7 +46,11 @@ exports.loadModel = function loadModel() {
     },
   );
   User.associate = function () {
-    const { models } = sequelize
+    const { models } = sequelize;
+
+    models.User.hasMany(models.File, {
+      foreignKey: 'UserId',
+    })
   }
   return User;
 }

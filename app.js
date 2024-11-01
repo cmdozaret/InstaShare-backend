@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const app = new express();
+
 const env = require('./config/env/index');
+
+const app = new express();
 
 // parse application/json
 app.use(bodyParser.json());

@@ -1,6 +1,7 @@
 const modulesWithRoutes = [
     'auth',
     'user',
+    'file',
 ];
 
 module.exports = {

@@ -13,6 +13,7 @@ module.exports = {
     loadModels: () => {
         const modelsToLoad = [
             'user',
+            'file',
         ];
         // models are loaded
         modelsToLoad.forEach((modelName) => {
