@@ -36,12 +36,6 @@ module.exports = async function (req, res) {
                 err.status = 403;
                 throw err;
             }
-            if (decoded.id !== req.loggedUser.id) {
-                const err = new Error();
-                err.message = "Invalid refresh token provided";
-                err.status = 403;
-                throw err;
-            }
 
             // Generating access token
             const userInfo = {

@@ -11,7 +11,7 @@ exports.routes = function routes(app) {
     const refreshTokenRoute = `${authCollectionRoute}/refresh-token`;
     app
         .route(refreshTokenRoute)
-        .post(authUser, require('./refresh-token.js'));
+        .post(require('./refresh-token.js'));
 
     const logoutRoute = `${authCollectionRoute}/logout`;
     app
