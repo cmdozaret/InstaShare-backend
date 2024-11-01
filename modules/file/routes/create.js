@@ -1,27 +1,7 @@
-const archiver = require('archiver');
-const { Readable } = require('stream');
+const AdmZip = require('adm-zip');
 
 const { sequelize } = require('../../../common/db');
 const { models } = sequelize;
-
-// Function to zip the file
-function zipFile(fileBuffer, fileName) {
-  const archive = archiver('zip');
-  const stream = new Readable();
-
-  stream._read = () => { }; // No-op
-  archive.append(fileBuffer, { name: fileName });
-  archive.finalize();
-
-  return new Promise((resolve, reject) => {
-    const chunks = [];
-    archive.on('data', (chunk) => chunks.push(chunk));
-    archive.on('end', () => resolve(Buffer.concat(chunks)));
-    archive.on('error', (err) => reject(err));
-    stream.pipe(archive);
-  });
-};
-
 
 module.exports = async function (req, res) {
   try {
@@ -32,16 +12,16 @@ module.exports = async function (req, res) {
     const fileBuffer = req.file.buffer;
 
     try {
-      // Zip the file
-      // const zippedFile = await zipFile(fileBuffer, fileName);
+      // Create ZIP file
+      const zip = new AdmZip();
+      zip.addFile(fileName, fileBuffer);
+      const zippedFile = zip.toBuffer();
 
       // Save the zipped file to the database
       const file = {
         name: `${fileName}`,
-        // type: 'application/zip',
-        type: fileType,
-        // data: zippedFile,
-        data: fileBuffer,
+        type: 'application/zip',
+        data: zippedFile,
         UserId: userId,
       };
       await models.File.create(file);
