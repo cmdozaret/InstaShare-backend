@@ -36,11 +36,18 @@ module.exports = async function (req, res) {
             user.refreshToken = refreshToken;
             user.save();
 
-            // Returning tokens
-            return res.status(200).json({
+            let responseObj = require('../../../common/dataStructure/response');
+            responseObj.success = true;
+            responseObj.data = {
                 accessToken,
                 refreshToken,
-            });
+                user: userInfo
+            };
+            responseObj.message = "Login successfully";
+            responseObj.status = 200;
+
+            // Returning tokens
+            return res.status(200).json(responseObj);
         }
         else {
             const error = new Error();

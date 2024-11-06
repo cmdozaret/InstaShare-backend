@@ -41,9 +41,10 @@ module.exports = async function (req, res) {
             }
             user.refreshToken = null;
             user.save();
-            return res.status(200).json({
-                message: "Logged out successfuly"
-            });
+            let responseObj = require('../../../common/dataStructure/response');
+            responseObj.success = true;
+            responseObj.message = "Logged out successfuly";
+            return res.status(200).json(responseObj);
         });
     }
     catch (error) {
