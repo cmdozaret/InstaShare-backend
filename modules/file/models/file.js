@@ -17,9 +17,13 @@ exports.loadModel = function loadModel() {
         type: Sequelize.BLOB,
         allowNull: false,
       },
-      data: {
-        type: Sequelize.BLOB,
-        allowNull: false,
+      originalSize: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      zippedSize: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       UserId: {
         type: Sequelize.INTEGER,

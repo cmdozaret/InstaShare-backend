@@ -7,9 +7,19 @@ module.exports = async function (req, res) {
     const files = await models.File.findAll({
       where: {
         UserId: userId,
-      }
+      },
+      attributes: {
+        exclude: [
+          'data',
+        ],
+      },
     });
-    return res.status(200).json(files);
+    let responseObj = require('../../../common/dataStructure/response');
+    responseObj.success = true;
+    responseObj.status = 200;
+    responseObj.message = "";
+    responseObj.data = files;
+    return res.status(200).json(responseObj);
   }
   catch (error) {
     return res.status(error.status || 500).json({

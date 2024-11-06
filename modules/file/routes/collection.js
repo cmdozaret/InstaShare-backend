@@ -16,9 +16,8 @@ exports.routes = function routes(app) {
         .post(authUser, upload.single('file'), require('./create.js'))
         .get(authUser, require('./index.js'))
 
-    const fileSingleRoute = `${fileCollectionRoute}/:fileId`;
-
     async function ensureFileId(req, res, next) {
+
         const fileId = req.params.fileId || -1
         try {
             const file = await models.File.findByPk(fileId, {
@@ -52,6 +51,12 @@ exports.routes = function routes(app) {
         }
     }
 
+    const downloadRoute = `${fileCollectionRoute}/download/:fileId`;
+    app
+        .route(downloadRoute)
+        .get(authUser, ensureFileId, require('./download.js'))
+
+    const fileSingleRoute = `${fileCollectionRoute}/:fileId`;
     app
         .route(fileSingleRoute)
         .patch(authUser, ensureFileId, require('./update.js'))
