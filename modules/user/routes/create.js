@@ -10,17 +10,19 @@ let responseObj = require('../../../common/dataStructure/response');
 
 module.exports = async function (req, res) {
   try {
+    const { username, email, password } = req.body;
+    if (!username || !email || !password) {
+      const error = new Error();
+      error.status = 400;
+      error.message = 'Username, email and password are required';
+      throw error;
+    }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const user = {
-      username: req.body.username,
-      email: req.body.email,
+      username,
+      email,
       password: hashedPassword,
     };
-    if (!user.username || !user.email || !user.password) {
-      return res.status(400).json({
-        message: 'Required field(s) missing',
-      });
-    }
     const userInstance = await models.User.create(user);
     responseObj.success = true;
     responseObj.data = userInstance;
