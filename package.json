@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "devStart": "nodemon app.js",
+    "test-migrate": "cross-env NODE_ENV=staging npx sequelize-cli db:migrate",
     "test": "cross-env NODE_ENV=staging mocha --recursive"
   },
   "keywords": [],
