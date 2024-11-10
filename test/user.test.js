@@ -7,6 +7,7 @@ const app = require('../app');
 
 describe('User API', () => {
     let dbQueryStub;
+    let id = 1;
 
     // Set up a stub for the database query
     beforeEach(() => {
@@ -46,9 +47,6 @@ describe('User API', () => {
                 .post('/user')
                 .send(newUser)
                 .expect(201)
-                // .expect(res => {
-                //     expect(res.body).to.include(newUser);
-                // })
                 .end(done);
         });
 
@@ -57,38 +55,23 @@ describe('User API', () => {
                 .post('/user')
                 .send({})
                 .expect(400)
-                // .expect(res => {
-                //     expect(res.body).to.have.property('error', 'Name is required');
-                // })
                 .end(done);
         });
     });
 
-    // describe('DELETE /users/:id', () => {
-    //     it('should delete a user by id', (done) => {
-    //         app.locals.users = [{ id: 1, name: 'John Doe' }];
-    //         request(app)
-    //             .delete('/users/1')
-    //             .expect(204)
-    //             .end(err => {
-    //                 if (err) return done(err);
-    //                 // Verify user is deleted
-    //                 request(app)
-    //                     .get('/users')
-    //                     .expect(200)
-    //                     .expect(res => {
-    //                         expect(res.body).to.be.an('array').that.is.empty;
-    //                     })
-    //                     .end(done);
-    //             });
-    //     });
+    describe(`DELETE /user/:id`, () => {
+        it('should return 401 if user is not logged in', (done) => {
+            request(app)
+                .delete(`/user/${id}`)
+                .expect(401)
+                .end(done);
+        });
 
-    //     it('should not return an error when deleting a non-existing user', (done) => {
-    //         app.locals.users = [{ id: 1, name: 'John Doe' }];
-    //         request(app)
-    //             .delete('/users/9999')
-    //             .expect(204)
-    //             .end(done);
-    //     });
-    // });
+        it('should return an error when deleting a non-existing user due permissions', (done) => {
+            request(app)
+                .delete('/users/9999')
+                .expect(404)
+                .end(done);
+        });
+    });
 });
