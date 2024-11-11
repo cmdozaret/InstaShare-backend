@@ -33,20 +33,25 @@ Technologies Used
 **Backend Setup:**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/file-storage-system.git
+   git clone https://github.com/cmdozaret/InstaShare-backend.git
    cd file-storage-system
    ```
 2. Navigate to the server directory:
     ```bash
     cd cubane_back-end
     ```
-3. Install dependencies:
+3. Switch to *production* remote branch
+    ```bash
+    git fetch
+    git checkout -b production origin/production
+    ```
+4. Install dependencies:
     ```bash
     npm install
     ```
-4. Set the enviroment to your project.
+5. Set the enviroment to your project.
     * Note: set the enviroment with the proper data according to your server. To make a custom envoriment, copy the *"development.json"* file located at *"config/env/"* directory, edit it with the proper data.
-5. Configure the database params in config/env/{enviroment}.json:
+6. Configure the database params in config/env/{enviroment}.json:
     ```json
     {
         ...
@@ -69,12 +74,12 @@ Technologies Used
     ```
     * Note: set the enviroment with the proper data according to your server.
     
-6. Run database migrations:
+7. Run database migrations:
     ```bash
     cross-env NODE_ENV={staging} npx sequelize-cli db:migrate
     ```
     * Note: replace **{staging}** with the enviroment name to load.
-7. Start the server
+8. Start the server
     ```bash
     npm start
     ```
@@ -82,18 +87,23 @@ Technologies Used
 **Frontend Setup:**
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/file-storage-system.git
+   git clone https://github.com/cmdozaret/InstaShare-frontend.git
    cd file-storage-system
    ```
 2. Navigate to the server directory:
     ```bash
     cd cubane_front-end
     ```
-3. Install dependencies:
+3. Switch to *production* remote branch
+    ```bash
+    git fetch
+    git checkout -b production origin/production
+    ```
+4. Install dependencies:
     ```bash
     npm install
     ```
-4. Start the Angular application:
+5. Start the Angular application:
     ```bash
     ng serve
     ```
