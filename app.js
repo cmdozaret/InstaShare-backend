@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const env = require('./config/env/index');
+const portNumber = env.get('port');
 
 const app = new express();
 
@@ -45,6 +46,8 @@ db.loadModels();
 const routes = require('./src/routes');
 routes.setRoutes(app);
 
-app.listen(env.get('port'));
+app.listen(portNumber, () => {
+    console.log(`Server running on port: ${portNumber}`)
+});
 
 module.exports = app;
