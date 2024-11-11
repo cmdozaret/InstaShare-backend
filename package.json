@@ -4,7 +4,9 @@
   "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon app.js"
+    "devStart": "nodemon app.js",
+    "test-migrate": "cross-env NODE_ENV=staging npx sequelize-cli db:migrate",
+    "test": "cross-env NODE_ENV=staging mocha --recursive"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +28,12 @@
     "sequelize": "^6.37.5"
   },
   "devDependencies": {
+    "chai": "^5.1.2",
+    "cross-env": "^7.0.3",
+    "mocha": "^10.8.2",
     "nodemon": "^3.1.7",
-    "sequelize-cli": "^6.6.2"
+    "sequelize-cli": "^6.6.2",
+    "sinon": "^19.0.2",
+    "supertest": "^7.0.0"
   }
 }

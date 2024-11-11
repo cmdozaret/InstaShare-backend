@@ -46,3 +46,5 @@ const routes = require('./src/routes');
 routes.setRoutes(app);
 
 app.listen(env.get('port'));
+
+module.exports = app;
