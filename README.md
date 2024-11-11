@@ -1,93 +1,160 @@
-# CubanE_back-end
+# InstaShare
 
+## Overview
 
+This project is a file storage system developed using Angular for the front end, Express.js for the back end, Sequelize as the ORM, and MySQL as the database. The system allows users to upload files, which are then stored on the server. Once a file is uploaded, a backend service zips it and stores the zipped version in the database. Users can only access and download the files they have uploaded, secured by JWT authentication.
 
-## Getting started
+## Features
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+- File Upload: Users can upload files to the server.
+- File Zipping: Uploaded files are automatically zipped and stored.
+- User Authentication: JWT-based authentication ensures secure access.
+- User-specific Access: Users can only view and download their own files.
+- Responsive Design: The front end is built to be responsive and user-friendly.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Technologies Used
 
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://gitlab.com/cmdozaret/cubane_back-end.git
-git branch -M main
-git push -uf origin main
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/cmdozaret/cubane_back-end/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+    Frontend: Angular
+    Backend: Express.js
+    Database: MySQL
+    ORM: Sequelize
+    Authentication: JWT (JSON Web Tokens)
+    Testing: Mocha & Chai for backend, Jasmine for frontend
 
 ## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Prerequisites
+
+    Node.js
+    MySQL Server
+    Internet service
+
+#### Steps
+
+**Backend Setup:**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/file-storage-system.git
+   cd file-storage-system
+   ```
+2. Navigate to the server directory:
+    ```bash
+    cd cubane_back-end
+    ```
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
+4. Set the enviroment to your project.
+    * Note: set the enviroment with the proper data according to your server. To make a custom envoriment, copy the *"development.json"* file located at *"config/env/"* directory, edit it with the proper data.
+5. Configure the database params in config/env/{enviroment}.json:
+    ```json
+    {
+        ...
+        "database": {
+            "activeDialect": "mysql",
+            "dialects": {
+                "mysql": {
+                    "name": "mysql",
+                    "dialect": "mysql",
+                    "host": database-host,
+                    "port": mysql-port-listened,
+                    "username": database-user-username,
+                    "password": database-user-password,
+                    "database": "cubane"
+                }
+            }
+        },
+        ...
+    }
+    ```
+    * Note: set the enviroment with the proper data according to your server.
+    
+6. Run database migrations:
+    ```bash
+    cross-env NODE_ENV={staging} npx sequelize-cli db:migrate
+    ```
+    * Note: replace **{staging}** with the enviroment name to load.
+7. Start the server
+    ```bash
+    npm start
+    ```
+
+**Frontend Setup:**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/file-storage-system.git
+   cd file-storage-system
+   ```
+2. Navigate to the server directory:
+    ```bash
+    cd cubane_front-end
+    ```
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
+4. Start the Angular application:
+    ```bash
+    ng serve
+    ```
+
+
+**Access the Application:** 
+Once are both back-end and front-end systems correctly installed and confiured, open your browser and visit http://localhost:4200.
+
+## Testing
+### Backend Tests
+- Set Up Testing Environment:
+Ensure the test database is configured in *"config/env/staging.json"* as shown in the installation section.
+- Run Backend Tests:
+    To run tests using Mocha and Chai, execute:
+    ```bash
+    npm test
+    ```
+    This command will run the test suite defined in the backend tests.
+
+### Frontend Tests
+- Run Frontend Tests:
+    To execute tests using Jasmine, navigate to the client directory and run:
+    ```bash
+    ng test
+    ```
+    This will start the Angular test runner and execute the frontend test suite.
 
 ## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+    User Registration: Users can register to create an account.
+    User Login: After registration, users can log in to access their dashboard.
+    Upload Files: Users can upload files through the interface.
+    View Uploaded Files: Users can see the list of their uploaded files and download them.
+    Logout: Users can log out securely from the system.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### API Endpoints
+
+    User endpoints
+    POST /user: Register a new user.
+    GET /user: Returns a list with all users registed.
+    PATCH /user/:userId: Update the data for a specific user. Must be logged in and only is updated the logged user's data.
+    GET /user/:userId: Returns the data of the logged user. Must be logged in.
+    DELETE /user/:userId: Delete an user. An user can only be deleted by itself.
+    
+    Authentication endpoints
+    POST /auth/login: Authenticate a user and return a JWT.
+    POST /auth/refresh-token: Returns a new 30-minutes valid secret JWT token for the user.
+    DELETE /auth/logout: Log out an user.
+    
+    File endpoints
+    POST /file: Upload a file. The user must be logged in.
+    GET /file: Returns a list with all files uploaded by the logged user.
+    PATCH /file/:fileId: Update the name for a specific file. User must be logged in and only can modify his own files.
+    GET /file/download/:fileId: Returns and download the file for the logged user. Must be the file owner.
+    DELETE /file/:fileId: Delete a file. An user can only delete his own files.
 
 ## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Contributions are welcome! Please submit a pull request or open an issue for any feature requests or bug fixes.
 
 ## License
-For open source projects, say how it is licensed.
+This project is licensed under the MIT License. See the LICENSE file for details.
+Contact
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+For any questions, feel free to reach out to cmdozaret@gmail.com
